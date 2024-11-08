@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaNegocio", "LogicaNegocio.csproj", "{7E88FB14-F10A-4D2B-8A61-2B2905D5B2F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaNegocio", "LogicaNegocio.csproj", "{7E88FB14-F10A-4D2B-8A61-2B2905D5B2F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venta", "..\Venta\Venta.csproj", "{4BFA90EC-2B32-43F9-8343-D492A04D300B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Venta", "..\Venta\Venta.csproj", "{4BFA90EC-2B32-43F9-8343-D492A04D300B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppObligatorio", "..\WebAppObligatorio\WebAppObligatorio.csproj", "{5137E3FA-A8B2-41F5-90E5-C0FB630486C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4BFA90EC-2B32-43F9-8343-D492A04D300B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BFA90EC-2B32-43F9-8343-D492A04D300B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BFA90EC-2B32-43F9-8343-D492A04D300B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5137E3FA-A8B2-41F5-90E5-C0FB630486C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5137E3FA-A8B2-41F5-90E5-C0FB630486C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5137E3FA-A8B2-41F5-90E5-C0FB630486C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5137E3FA-A8B2-41F5-90E5-C0FB630486C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

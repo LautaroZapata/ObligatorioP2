@@ -8,21 +8,20 @@ namespace LogicaNegocio
 {
     public class Administrador : Usuario
     {
-        public Administrador()
-        {
-
-        }
+        // CONSTRUCTOR
+        public Administrador(){}
         public Administrador (string nombre, string apellido, string email, string password) : base(nombre, apellido, email, password)
         {
 
         }
+        // METODOS
         public override string ToString()
         {
             return "ID Admin : " + this.Id+
-                " Nombre Admin : " + this.Nombre+
-                " Apellido Admin : " + this.Apellido+
-                " Email Admin : " + this.Email+
-                " Password Admin : " + this.Password;
+                "\n Nombre Admin : " + this.Nombre+
+                "\n Apellido Admin : " + this.Apellido+
+                "\n Email Admin : " + this.Email+
+                "\n Password Admin : " + this.Password;
         }
     }
 }

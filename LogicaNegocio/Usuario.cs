@@ -8,13 +8,15 @@ namespace LogicaNegocio
 {
     public abstract class Usuario
     {
+        // ATRIBUTOS
         public static int s_proxId = 0;
         private int _idUser;
         private string _nombre;
         private string _apellido;
         private string _email;
         private string _password;
-
+        
+        // PROPIEDADES
         public int Id
         {
             get { return _idUser; }
@@ -42,9 +44,11 @@ namespace LogicaNegocio
             set { _password = value; }
         }
 
+        // CONSTRUCTOR
         public Usuario()
         {
             this._idUser = Usuario.s_proxId++;
+            
         }
 
         public Usuario(string nombre, string apellido, string email, string password)
@@ -54,8 +58,18 @@ namespace LogicaNegocio
             this._apellido = apellido;
             this._email = email;
             this._password = password;
+
         }
 
-        public abstract override string ToString();
+        // METODOS
+        public override string ToString()
+        {
+            return
+                "\n Id Usuario : " + this.Id +
+                "\n Nombre : " + this.Nombre +
+                "\n Apellido : " + this.Apellido +
+                "\n Email : " + this.Email +
+                "\n Password : " + this.Password;
+        }
     }
 }

@@ -1,0 +1,23 @@
+﻿@using LogicaNegocio
+@model List<Cliente>
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Saldo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Cliente cliente in Model)
+        {
+            <tr>
+                <th scope="row">@cliente.Id</th>
+                <th>@cliente.Nombre</th>
+                <th>@cliente.Apellido</th>
+                <th>@cliente.SaldoDisponible</th>
+            </tr>
+        }
+    </tbody>
+</table>

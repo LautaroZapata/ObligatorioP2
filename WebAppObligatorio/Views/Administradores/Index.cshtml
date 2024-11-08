@@ -1,0 +1,24 @@
+﻿@using LogicaNegocio
+@model List<Administrador>
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Saldo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Administrador admin in Model)
+        {
+            <tr>
+                <th scope="row">@admin.Id</th>
+                <th>@admin.Nombre</th>
+                <th>@admin.Apellido</th>
+                <th>@admin.Email</th>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,22 @@
+﻿@using LogicaNegocio
+@model List<Publicacion>
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Saldo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Publicacion publicacion in Model)
+        {
+            <tr>
+                <th scope="row">@publicacion.Nombre</th>
+                <th>@publicacion.Estado</th>
+            </tr>
+        }
+    </tbody>
+</table>
