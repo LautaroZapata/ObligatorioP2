@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace LogicaNegocio
 {
@@ -62,14 +64,15 @@ namespace LogicaNegocio
                 return "NO \n Precio Total: " + this.PrecioVenta;
             }
         }
-        //public override int CalcularPrecioPublicacion()
-        //{
-        //    foreach (Articulo unArticulo in this.Articulos)
-        //    {
-        //        this._precioVentaTotal += unArticulo.PrecioVenta;
-        //    }
-        //    return this._precioVentaTotal;
-        //}
+        public override string RenderizarPublicaciones()
+        {
+            return $@"
+            <div>Precio: {PrecioVenta}</div>
+            <form method='post' asp-action='Comprar' asp-controller='Clientes'>
+                <input type='hidden' name='id' value='{Id}' />
+                <button type='submit' class='btn btn-success'>Comprar</button>
+            </form>";
+        }
 
     }
 }

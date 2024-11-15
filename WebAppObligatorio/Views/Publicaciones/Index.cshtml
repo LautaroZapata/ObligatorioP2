@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Publicacion publicacion in Model)
+        @* @foreach (Publicacion publicacion in Model)
         {
             <tr>
                 <th scope="row">@publicacion.Nombre</th>
@@ -51,6 +51,14 @@
                 }
                 <th scope="col"><a href="~/Publicaciones/DetallePublicacion/@publicacion.Id">Info</a></th>
             </tr>
-        }
+        } *@
+        @* @foreach (var publicacion in Model)
+        {
+            <tr>
+                <td>@publicacion.Nombre</td>
+                <td>@publicacion.Estado</td>
+                <td>@publicacion.RenderizarPublicaciones()</td>
+            </tr>
+        } *@
     </tbody>
 </table>

@@ -61,6 +61,17 @@ namespace LogicaNegocio
             //si existe, retornàs una excepcion 
             //_listaPujas
         }
+        public override string RenderizarPublicaciones()
+        {
+            return $@"
+            <div>Mayor Puja: {MayorPuja()}</div>
+            <form method='post'>
+                <div class='mb-3 d-flex'>
+                    <input type='number' name='puja' class='form-control w-50' placeholder='Monto Oferta' />
+                    <button type='submit' class='btn btn-primary'>Ofertar</button>
+                </div>
+            </form>";
+        }
 
 
     }

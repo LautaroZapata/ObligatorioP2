@@ -95,6 +95,6 @@ namespace LogicaNegocio
             }
             return listaArticulos;
         }
-        //public abstract int CalcularPrecioPublicacion();
+        public abstract string RenderizarPublicaciones();
     }
 }
