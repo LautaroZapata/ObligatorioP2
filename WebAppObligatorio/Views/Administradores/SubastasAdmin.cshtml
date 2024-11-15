@@ -1,0 +1,24 @@
+﻿@using LogicaNegocio
+@model List<Subasta>
+
+<table class="table table-hover table-dark w-100">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha Publicacion</th>
+            <th scope="col">Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Subasta subasta in Model)
+        {
+            <tr>
+                <th scope="row">@subasta.Nombre</th>
+                <th scope="row">@subasta.Estado</th>
+                <th scope="row">@subasta.FechaPublicacion</th>
+                <th scope="row">@subasta.MayorPuja()</th>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,56 @@
+﻿@using LogicaNegocio
+@model List<Publicacion>
+
+@if(ViewBag.Mensaje != null) {
+    <div class="alert alert-info">
+        @ViewBag.Mensaje
+    </div>
+}
+
+<table class="table table-hover table-dark w-100">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Comprar/Ofertar</th>
+            <th scope="col">Info</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Publicacion publicacion in Model)
+        {
+            <tr>
+                <th scope="row">@publicacion.Nombre</th>
+                <th>@publicacion.Estado</th>
+                @if (publicacion is Subasta subasta)
+                {
+                    string mayorPuja = subasta.MayorPuja();
+                    <th>@mayorPuja</th>
+                    <th>
+                        <form method="post">
+                            <div class="mb-3 d-flex">
+                                <input type="number" name="puja" class="form-control w-50" aria-describedby="puja" placeholder="Monto Oferta">
+                                <button type="submit" class="btn btn-primary" value="Ofertar">Ofertar</button>
+
+                            </div>
+                        </form>
+                    </th>
+
+                }
+                else if (publicacion is Venta venta)
+                {
+                    <th>@venta.PrecioVenta</th>
+                    <th>
+                        <form method="post" asp-action="Comprar" asp-controller="Clientes">
+                            <input type="hidden" name="id" value="@venta.Id" />
+                            <button type="submit" class="btn btn-success">Comprar</button>
+                        </form>
+                    </th>
+                }
+                <th scope="col"><a href="~/Publicaciones/DetallePublicacion/@publicacion.Id">Info</a></th>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@using LogicaNegocio
+@model Publicacion
+
+<div class="card bg-dark text-white" style="width: 18rem;">
+    <div class="card-header">
+        @Model.Nombre
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Fecha de publicacion : @Model.FechaPublicacion</li>
+        <li class="list-group-item">Estado : @Model.Estado</li>
+        @if(Model.Articulos != null || Model.Articulos.Count != 0)
+        {
+            @foreach(Articulo unArticulo in Model.Articulos)
+            {
+                <li class="list-group-item">@unArticulo.Nombre : $@unArticulo.PrecioVenta</li>
+            }
+        }
+        @if (Model is Subasta subasta)
+        {
+            string mayorPuja = subasta.MayorPuja();
+            <li class="list-group-item">Precio Maximo Ofertado : @mayorPuja</li>
+        }else if(Model is Venta venta)
+        {
+            <li class="list-group-item">Precio : @venta.PrecioVenta</li>
+        }
+        
+    </ul>
+</div>
+<a href="~/Publicaciones/Index"><button class="btn btn-primary">Volver</button></a>

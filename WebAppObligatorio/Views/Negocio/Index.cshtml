@@ -1,7 +1,30 @@
 ﻿@using LogicaNegocio
-@model List<Cliente>
+@model Cliente
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-info">
+        @ViewBag.Mensaje
+    </div>
+}
+@if (!string.IsNullOrEmpty(Context.Session.GetString("email")))
+{
+    <h1 class="display-4">@Context.Session.GetString("email") Bienvenido/a</h1>
+    <div class="alert alert-info">
+        Esta logueado con el rol de : @Context.Session.GetString("rol")
+    </div>
+    <div class="alert alert-success">
+        Saldo disponible: @Model.SaldoDisponible
+    </div>
 
 
-<h1 class="display-4">Bienvenido/a</h1>
+}
+
 
 

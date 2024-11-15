@@ -35,5 +35,14 @@ namespace LogicaNegocio
                 "\n Email : " + this.Email +
                 "\n Password :  " + this.Password;
         }
+        public bool RealizarCompra(int montoTotal)
+        {
+            if(SaldoDisponible >= montoTotal)
+            {
+                SaldoDisponible -= montoTotal;
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -68,9 +68,9 @@ namespace LogicaNegocio
 
             return
                 //"ID Puja: " + this.IdPuja +
-                " \n Usuario de la Puja: " + username +
-                " \n Monto Ofertado: " + this.MontoOfertado +
-                " \n Fecha de la Puja: " + this.FechaPuja.ToString("dd/MM/yyyy");
+                //" \n Usuario de la Puja: " + username +
+                "Monto Ofertado: " + this.MontoOfertado;
+                //" \n Fecha de la Puja: " + this.FechaPuja.ToString("dd/MM/yyyy");
         }
 
         public int CompareTo(Puja? other)

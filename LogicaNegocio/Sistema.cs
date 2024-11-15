@@ -30,7 +30,10 @@ namespace LogicaNegocio
 
 
         // CONSTRUCTOR
-        private Sistema() { }
+        private Sistema()
+        {
+            this.PrecargarDatos();
+        }
 
         // METODOS
         public static Sistema Instancia
@@ -47,19 +50,26 @@ namespace LogicaNegocio
             // Precarga de administradores con nombres simulados
             this._listaAdministradores.Add(new Administrador("Carlos", "Mendoza", "carlos.mendoza@example.com", "adminPass1"));
             this._listaAdministradores.Add(new Administrador( "Laura", "Gómez", "laura.gomez@example.com", "adminPass2"));
+            foreach (Administrador admin in this._listaAdministradores)
+            {
+                this._listaUsuarios.Add(admin);
+            }
 
             // Precarga de clientes con nombres simulados
-            this._listaClientes.Add(new Cliente(500, "Juan", "Pérez", "juan.perez@example.com", "password1"));
-            this._listaClientes.Add(new Cliente(300, "María" , "López", "maria.lopez@example.com", "password2"));
-            this._listaClientes.Add(new Cliente(450, "Pedro", "García", "pedro.garcia@example.com", "password3"));
-            this._listaClientes.Add(new Cliente(200, "Ana", "Martínez", "ana.martinez@example.com", "password4" ));
-            this._listaClientes.Add(new Cliente(750, "Luis", "Ramírez", "luis.ramirez@example.com", "password5"));
-            this._listaClientes.Add(new Cliente(620, "Marta" , "Fernández", "marta.fernandez@example.com", "password6"));
-            this._listaClientes.Add(new Cliente(380, "José" , "Sánchez", "jose.sanchez@example.com", "password7"));
-            this._listaClientes.Add(new Cliente(500, "Elena" , "Vargas", "elena.vargas@example.com", "password8"));
-            this._listaClientes.Add(new Cliente(410, "David" , "Ortiz", "david.ortiz@example.com", "password9"));
-            this._listaClientes.Add(new Cliente(680, "Carolina" , "Hernández", "carolina.hernandez@example.com", "password10"));
-
+            this._listaClientes.Add(new Cliente(2500, "Juan", "Pérez", "juan.perez@example.com", "password1"));
+            this._listaClientes.Add(new Cliente(3300, "María" , "López", "maria.lopez@example.com", "password2"));
+            this._listaClientes.Add(new Cliente(4450, "Pedro", "García", "pedro.garcia@example.com", "password3"));
+            this._listaClientes.Add(new Cliente(2500, "Ana", "Martínez", "ana.martinez@example.com", "password4" ));
+            this._listaClientes.Add(new Cliente(7150, "Luis", "Ramírez", "luis.ramirez@example.com", "password5"));
+            this._listaClientes.Add(new Cliente(6220, "Marta" , "Fernández", "marta.fernandez@example.com", "password6"));
+            this._listaClientes.Add(new Cliente(3480, "José" , "Sánchez", "jose.sanchez@example.com", "password7"));
+            this._listaClientes.Add(new Cliente(5200, "Elena" , "Vargas", "elena.vargas@example.com", "password8"));
+            this._listaClientes.Add(new Cliente(4310, "David" , "Ortiz", "david.ortiz@example.com", "password9"));
+            this._listaClientes.Add(new Cliente(6380, "Carolina" , "Hernández", "carolina.hernandez@example.com", "password10"));
+            foreach (Cliente cliente in this._listaClientes)
+            {
+                this._listaUsuarios.Add(cliente);
+            }
             // Precarga de articulos con nombres simulados
 
             this._catalogo.Add(new Articulo("Laptop Lenovo", "Electronica", 745));
@@ -311,7 +321,59 @@ namespace LogicaNegocio
 
             return cant;
         }
-        
+        public Publicacion BuscarPublicacionPorId(int id)
+        {
+            foreach(Publicacion unaPublicacion in _listaPublicaciones)
+            {
+                if(unaPublicacion.Id == id)
+                {
+                    return unaPublicacion;
+                }
+            }
+            throw new Exception("No existe una publicacion con ese ID");
+        }
+        public Usuario AutenticarUser (string email, string password)
+        {
+            foreach (Usuario user in _listaUsuarios)
+            {
+                if (user.Email == email)
+                {
+                    if (user.Password != password)
+                    {
+                        throw new Exception("Password incorrecta");
+                    }
+                    else
+                    {
+                        return user;
+                    }
+                }
+            }
+            throw new Exception("El email es incorrecto");
+        }
+        public Venta BuscarVentaPorId(int id)
+        {
+            foreach (Publicacion unaPublicacion in _listaPublicaciones)
+            {
+                if (unaPublicacion is Venta unaVenta && unaVenta.Id == id)
+                {
+                    return unaVenta;
+                }
+            }
+            throw new Exception("No existe una venta con ese ID");
+        }
+        public Cliente BuscarClientePorEmail(string email)
+        {
+            foreach (Cliente cliente in _listaClientes)
+            {
+                if (cliente.Email == email)
+                {
+                    return cliente;
+                }
+            }
+            throw new Exception("No existe ese Email");
+
+        }
+
     }
 }
 

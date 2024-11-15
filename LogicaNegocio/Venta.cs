@@ -28,7 +28,7 @@ namespace LogicaNegocio
         public Venta(Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Cliente clienteComprador, Usuario userCierraVenta, DateTime? fechaFinalizado,string nombre, bool OfertaRelampago) : base(estado, articulos, clienteComprador, userCierraVenta, fechaPublicacion, fechaFinalizado, nombre)
         {
             this._ofertaRelampago = OfertaRelampago;
-            //this.CalcularPrecioPublicacion();
+            this.MontoTotalVenta();
             this.UserCierraVenta = this.ClienteComprador;
  
         }
@@ -44,13 +44,13 @@ namespace LogicaNegocio
                 this.FechaPublicacion.Day + "/" + this.FechaPublicacion.Month + "/" + this.FechaPublicacion.Year + "/" +
                 "\nEn Oferta Relámpago: " + this.EstaEnOferta();
         }
-        //public void MontoTotalVenta()
-        //{
-        //    foreach(Articulo unArticulo in this.Articulos)
-        //    {
-        //        this._precioVentaTotal += unArticulo.PrecioVenta;
-        //    }
-        //}
+        public void MontoTotalVenta()
+        {
+            foreach (Articulo unArticulo in this.Articulos)
+            {
+                this._precioVentaTotal += unArticulo.PrecioVenta;
+            }
+        }
         public string EstaEnOferta()
         {
             if (this.OfertaRelampago)

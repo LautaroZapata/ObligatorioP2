@@ -48,10 +48,20 @@ namespace LogicaNegocio
             }
 
             // Encuentra la puja con el monto mayor
-            Puja pujaMayor = this.Pujas.Min();
+            Puja pujaMayor = this.Pujas.Max();
 
             return pujaMayor.ToString();
         }
+
+        public void AgregrarPuja()
+        {
+
+            //validar que el usuario ya no tenga otra puja
+            //recorres pujas y preguntàs a cada una si contiene al usuario.
+            //si existe, retornàs una excepcion 
+            //_listaPujas
+        }
+
 
     }
 }
