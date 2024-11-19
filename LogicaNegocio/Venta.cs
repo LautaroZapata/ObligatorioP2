@@ -64,15 +64,5 @@ namespace LogicaNegocio
                 return "NO \n Precio Total: " + this.PrecioVenta;
             }
         }
-        public override string RenderizarPublicaciones()
-        {
-            return $@"
-            <div>Precio: {PrecioVenta}</div>
-            <form method='post' asp-action='Comprar' asp-controller='Clientes'>
-                <input type='hidden' name='id' value='{Id}' />
-                <button type='submit' class='btn btn-success'>Comprar</button>
-            </form>";
-        }
-
     }
 }

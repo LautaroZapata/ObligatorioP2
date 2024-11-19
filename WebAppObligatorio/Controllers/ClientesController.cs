@@ -13,28 +13,71 @@ namespace WebAppObligatorio.Controllers
         {
             return View(sistema.Clientes);
         }
+
         [HttpPost]
         public IActionResult Comprar(int id)
         {
             Venta venta = sistema.BuscarVentaPorId(id);
             Cliente cliente = sistema.BuscarClientePorEmail(HttpContext.Session.GetString("email"));
-            bool compraAutorizada = cliente.RealizarCompra(venta.PrecioVenta);
-            if(compraAutorizada)
+            if(venta.Estado ==  Estado.Abierta)
             {
-               ViewBag.Mensaje = "Compra realizada con éxito."; 
+                bool compraAutorizada = cliente.RealizarCompra(venta.PrecioVenta);
+                if (compraAutorizada)
+                {
+                    ViewBag.Mensaje = "Compra realizada con éxito.";
+                    venta.CerrarPublicacion();
+                }
+                else
+                {
+
+                    ViewBag.Mensaje = "Saldo Insuficiente";
+                }
             }
             else
             {
-                
-               ViewBag.Mensaje = "Saldo Insuficiente"; ;
+                ViewBag.Mensaje = "La publicacion se encuentra cerrada";
+
             }
-            return View("Index","Negocio");
+            return RedirectToAction("Index", "Negocio", new { mensaje = ViewBag.Mensaje });
         }
         public IActionResult Comprar()
         {
 
             return View();
         }
+        public IActionResult Subastar(int id, int puja)
+        {
+            try
+            {
+                Subasta subasta = sistema.BuscarSubastaPorId(id);
+                Cliente cliente = sistema.BuscarClientePorEmail(HttpContext.Session.GetString("email"));
+                if (subasta.Estado == Estado.Abierta)
+                {
+                    if (puja > subasta.MayorPuja() && cliente.SaldoDisponible >= puja)
+                    {
+                        subasta.AgregrarPuja(puja, cliente);
+                        ViewBag.Mensaje = "Puja realizada.";
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "La puja es menor a la mayor puja realizada.";
+
+                    }
+                }
+                else
+                {
+                    ViewBag.Mensaje = "La subasta esta cerrada.";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensaje = ex.Message;
+            }
+            
+            return RedirectToAction("Index", "Negocio", new { mensaje = ViewBag.Mensaje });
+        }
+
 
     }
 }

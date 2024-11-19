@@ -17,7 +17,7 @@
         }
         @if (Model is Subasta subasta)
         {
-            string mayorPuja = subasta.MayorPuja();
+            int mayorPuja = subasta.MayorPuja();
             <li class="list-group-item">Precio Maximo Ofertado : @mayorPuja</li>
         }else if(Model is Venta venta)
         {

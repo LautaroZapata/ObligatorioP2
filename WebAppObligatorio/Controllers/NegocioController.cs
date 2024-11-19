@@ -12,6 +12,10 @@ namespace WebAppObligatorio.Controllers
         {
             string email = HttpContext.Session.GetString("email");
             Cliente cliente = sistema.BuscarClientePorEmail(email);
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                ViewBag.Mensaje = mensaje;
+            }
             return View(cliente);
         }
         public IActionResult Login(string mensaje)

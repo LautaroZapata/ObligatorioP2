@@ -19,46 +19,51 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach (Publicacion publicacion in Model)
+        @foreach (Publicacion publicacion in Model)
         {
             <tr>
                 <th scope="row">@publicacion.Nombre</th>
                 <th>@publicacion.Estado</th>
                 @if (publicacion is Subasta subasta)
                 {
-                    string mayorPuja = subasta.MayorPuja();
+                    string mayorPuja = subasta.MayorPuja().ToString();
                     <th>@mayorPuja</th>
-                    <th>
-                        <form method="post">
-                            <div class="mb-3 d-flex">
-                                <input type="number" name="puja" class="form-control w-50" aria-describedby="puja" placeholder="Monto Oferta">
-                                <button type="submit" class="btn btn-primary" value="Ofertar">Ofertar</button>
-
-                            </div>
-                        </form>
-                    </th>
-
+                    @if (subasta.Estado == Estado.Abierta)
+                    {
+                        <th>
+                            <form method="post" asp-action="Subastar" asp-controller="Clientes">
+                                <input type="hidden" name="id" value="@subasta.Id" />
+                                <div class="mb-3 d-flex">
+                                    <input type="number" name="puja" class="form-control w-50" placeholder="Monto Oferta" required />
+                                    <button type="submit" class="btn btn-primary">Ofertar</button>
+                                </div>
+                            </form>
+                        </th>
+                    }
+                    else
+                    {
+                        <th></th>
+                    }
                 }
                 else if (publicacion is Venta venta)
                 {
                     <th>@venta.PrecioVenta</th>
-                    <th>
-                        <form method="post" asp-action="Comprar" asp-controller="Clientes">
-                            <input type="hidden" name="id" value="@venta.Id" />
-                            <button type="submit" class="btn btn-success">Comprar</button>
-                        </form>
-                    </th>
+                    @if(venta.Estado == Estado.Abierta)
+                    {
+                        <th>
+                            <form method="post" asp-action="Comprar" asp-controller="Clientes">
+                                <input type="hidden" name="id" value="@venta.Id" />
+                                <button type="submit" class="btn btn-success">Comprar</button>
+                            </form>
+                        </th>
+                    }else
+                    {
+                        <th></th>
+                    }
+                    
                 }
                 <th scope="col"><a href="~/Publicaciones/DetallePublicacion/@publicacion.Id">Info</a></th>
             </tr>
-        } *@
-        @* @foreach (var publicacion in Model)
-        {
-            <tr>
-                <td>@publicacion.Nombre</td>
-                <td>@publicacion.Estado</td>
-                <td>@publicacion.RenderizarPublicaciones()</td>
-            </tr>
-        } *@
+        }
     </tbody>
 </table>

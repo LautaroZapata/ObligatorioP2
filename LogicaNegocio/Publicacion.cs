@@ -95,6 +95,9 @@ namespace LogicaNegocio
             }
             return listaArticulos;
         }
-        public abstract string RenderizarPublicaciones();
+        public void CerrarPublicacion()
+        {
+            this.Estado = Estado.Cerrada;
+        }
     }
 }

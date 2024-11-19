@@ -40,39 +40,39 @@ namespace LogicaNegocio
                 this.FechaPublicacion.Day + "/" + this.FechaPublicacion.Month + "/" + this.FechaPublicacion.Year;
         }
 
-        public string MayorPuja()
+        public int MayorPuja()
         {
             if (this.Pujas == null || this.Pujas.Count == 0)
             {
-                return "No hay pujas.";
+                return 0;
             }
 
             // Encuentra la puja con el monto mayor
             Puja pujaMayor = this.Pujas.Max();
 
-            return pujaMayor.ToString();
+            return pujaMayor.MontoOfertado;
         }
 
-        public void AgregrarPuja()
+        public void AgregrarPuja(int puja, Cliente cliente)
         {
+            foreach (Puja unaPuja in this.Pujas)
+            {
+                if(unaPuja.UsuarioPuja == cliente)
+                {
+                    throw new Exception("Ya tienes una puja realizada.");
+                }
+            }
+            Puja nuevaPuja = new Puja
+            {
+                MontoOfertado = puja,
+                UsuarioPuja = cliente,
+                FechaPuja = DateTime.Now
+            };
 
-            //validar que el usuario ya no tenga otra puja
-            //recorres pujas y preguntàs a cada una si contiene al usuario.
-            //si existe, retornàs una excepcion 
-            //_listaPujas
+            // Agregar la nueva puja a la lista
+            this._listaPujas.Add(nuevaPuja);
         }
-        public override string RenderizarPublicaciones()
-        {
-            return $@"
-            <div>Mayor Puja: {MayorPuja()}</div>
-            <form method='post'>
-                <div class='mb-3 d-flex'>
-                    <input type='number' name='puja' class='form-control w-50' placeholder='Monto Oferta' />
-                    <button type='submit' class='btn btn-primary'>Ofertar</button>
-                </div>
-            </form>";
-        }
-
+        
 
     }
 }

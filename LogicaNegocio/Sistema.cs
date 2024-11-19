@@ -56,7 +56,7 @@ namespace LogicaNegocio
             }
 
             // Precarga de clientes con nombres simulados
-            this._listaClientes.Add(new Cliente(2500, "Juan", "Pérez", "juan.perez@example.com", "password1"));
+            this._listaClientes.Add(new Cliente(4200, "Juan", "Pérez", "juan.perez@example.com", "password1"));
             this._listaClientes.Add(new Cliente(3300, "María" , "López", "maria.lopez@example.com", "password2"));
             this._listaClientes.Add(new Cliente(4450, "Pedro", "García", "pedro.garcia@example.com", "password3"));
             this._listaClientes.Add(new Cliente(2500, "Ana", "Martínez", "ana.martinez@example.com", "password4" ));
@@ -373,7 +373,17 @@ namespace LogicaNegocio
             throw new Exception("No existe ese Email");
 
         }
-
+        public Subasta BuscarSubastaPorId(int id)
+        {
+            foreach (Publicacion unaPublicacion in _listaPublicaciones)
+            {
+                if (unaPublicacion is Subasta unaSubasta && unaSubasta.Id == id)
+                {
+                    return unaSubasta;
+                }
+            }
+            throw new Exception("No existe una venta con ese ID");
+        }
     }
 }
 

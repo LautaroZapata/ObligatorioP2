@@ -69,7 +69,7 @@ namespace LogicaNegocio
             return
                 //"ID Puja: " + this.IdPuja +
                 //" \n Usuario de la Puja: " + username +
-                "Monto Ofertado: " + this.MontoOfertado;
+                "Mayor monto ofertado: " + this.MontoOfertado;
                 //" \n Fecha de la Puja: " + this.FechaPuja.ToString("dd/MM/yyyy");
         }
 
