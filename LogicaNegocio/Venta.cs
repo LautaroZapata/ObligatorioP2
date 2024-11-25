@@ -64,12 +64,12 @@ namespace LogicaNegocio
                 return "NO \n Precio Total: " + this.PrecioVenta;
             }
         }
-        public override void CerrarPublicacion(Usuario user)
+        public override void CerrarPublicacion(Usuario user, Publicacion publicacion)
         {
-            this.Estado = Estado.Cerrada;
-            this.FechaFinalizado = DateTime.Now;
-            this.ClienteComprador = user;
-            this.UserCierraVenta = user;
+            publicacion.Estado = Estado.Cerrada;
+            publicacion.FechaFinalizado = DateTime.Now;
+            publicacion.ClienteComprador = user;
+            publicacion.UserCierraVenta = user;
 
         }
     }

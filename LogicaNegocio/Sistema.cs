@@ -13,7 +13,7 @@ namespace LogicaNegocio
         private List<Publicacion> _listaPublicaciones = new List<Publicacion>();
         private List<Administrador> _listaAdministradores = new List<Administrador>();
         private List<Subasta> _listaSubastas = new List<Subasta>();
-        //private List<Puja> _listaPuja = new List<Puja>();
+
 
         private List<Articulo> _catalogo = new List<Articulo>();
         private List<Cliente> _listaClientes = new List<Cliente>();
@@ -25,7 +25,6 @@ namespace LogicaNegocio
         public List<Publicacion> Publicaciones { get { return _listaPublicaciones; } }
         public List<Administrador> Administradores { get { return _listaAdministradores; } }
         public List<Subasta> Subastas { get { return _listaSubastas; } }
-        //public List<Puja> Pujas { get { return _listaPuja; } }
 
         public List<Articulo> Catalogo { get { return _catalogo; } }
 
@@ -170,14 +169,15 @@ namespace LogicaNegocio
                 List<Puja> listaPujas2 = new List<Puja>();
 
                 // Añadir pujas a la lista 1 (Subasta 1 - Electrónica)
-                listaPujas1.Add(new Puja(0, _listaAdministradores[0], 1000, DateTime.Now.AddDays(-1)));
+                listaPujas1.Add(new Puja(0, _listaClientes[0], 1000, DateTime.Now.AddDays(-1)));
                 listaPujas1.Add(new Puja(1, _listaClientes[1], 1500, DateTime.Now.AddHours(-3)));
                 listaPujas1.Add(new Puja(2, _listaClientes[2], 2000, DateTime.Now.AddMinutes(-30)));
+                
 
                 // Añadir pujas a la lista 2 (Subasta 2 - Deportes)
                 listaPujas2.Add(new Puja(3, _listaClientes[3], 500, DateTime.Now.AddDays(-2)));
                 listaPujas2.Add(new Puja(4, _listaClientes[0], 800, DateTime.Now.AddHours(-5)));
-                listaPujas2.Add(new Puja(5, _listaAdministradores[1], 1100, DateTime.Now.AddMinutes(-45)));
+                listaPujas2.Add(new Puja(5, _listaClientes[1], 1100, DateTime.Now.AddMinutes(-45)));
                 listaPujas2.Add(new Puja(6, _listaClientes[4], 1300, DateTime.Now.AddMinutes(-15)));
 
             // Crear las publicaciones de subastas
@@ -399,6 +399,13 @@ namespace LogicaNegocio
             else
             {
                 throw new Exception("El usuario no es un cliente válido.");
+            }
+        }
+        public void OrdenarPujasPorMonto()
+        {
+            foreach(Subasta subasta in this._listaSubastas)
+            {
+                subasta.Pujas.Sort();
             }
         }
         

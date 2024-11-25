@@ -1,6 +1,13 @@
 ﻿@using LogicaNegocio
 @model List<Subasta>
 
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-info">
+        @ViewBag.Mensaje
+    </div>
+}
+
 <table class="table table-hover table-dark w-100">
     <thead>
         <tr>
@@ -8,6 +15,10 @@
             <th scope="col">Estado</th>
             <th scope="col">Fecha Publicacion</th>
             <th scope="col">Precio</th>
+            <th scope="col">Cerrar Publicacion</th>
+
+
+
         </tr>
     </thead>
     <tbody>
@@ -18,6 +29,21 @@
                 <th scope="row">@subasta.Estado</th>
                 <th scope="row">@subasta.FechaPublicacion</th>
                 <th scope="row">@subasta.MayorPuja()</th>
+                @if(subasta.Estado == Estado.Abierta)
+                {
+                    <th>
+                        <form method="post" asp-action="CerrarSubasta" asp-controller="Administradores">
+                            <input type="hidden" name="id" value="@subasta.Id" />
+                            <div class="mb-3 d-flex">
+                                <button type="submit" class="btn btn-danger">Cerrar Subasta</button>
+                            </div>
+                        </form>
+                    </th>
+                }else
+                {
+                    <th></th>
+                }
+                
             </tr>
         }
     </tbody>

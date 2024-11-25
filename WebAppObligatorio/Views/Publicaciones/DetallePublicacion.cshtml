@@ -28,6 +28,13 @@
         {
             int mayorPuja = subasta.MayorPuja();
             <li class="list-group-item">Precio Maximo Ofertado : @mayorPuja</li>
+            @if(subasta.Estado == Estado.Cerrada)
+            {
+                <li class="list-group-item">Subasta Cerrada Por : @subasta.UserCierraVenta.Nombre</li>
+                <li class="list-group-item">Cliente Ganador : @subasta.ClienteComprador.Nombre</li>
+
+
+            }
         }else if(Model is Venta venta && venta.UserCierraVenta != null && venta.ClienteComprador != null)
         {
             <li class="list-group-item">Precio : @venta.PrecioVenta</li>

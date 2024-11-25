@@ -10,13 +10,24 @@ namespace WebAppObligatorio.Controllers
 
         public IActionResult Index(string mensaje)
         {
-            string email = HttpContext.Session.GetString("email");
-            Usuario cliente = sistema.UserLogueado(email);
-            if (!string.IsNullOrEmpty(mensaje))
+            try
             {
-                ViewBag.Mensaje = mensaje;
+                string email = HttpContext.Session.GetString("email");
+                Usuario cliente = sistema.UserLogueado(email);
+                return View(cliente);
+
             }
-            return View(cliente);
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(mensaje))
+                {
+                    ViewBag.Error = ex.Message;
+                }
+                return RedirectToAction("Login", new { mensaje = ex.Message });
+            }
+
+
+            
         }
         public IActionResult Login(string mensaje)
         {

@@ -5,6 +5,7 @@ using WebAppObligatorio.Filters;
 namespace WebAppObligatorio.Controllers
 {
     [Logueado]
+    [ClienteFilter]
 
     public class ClientesController : Controller
     {
@@ -29,7 +30,7 @@ namespace WebAppObligatorio.Controllers
                     if (compraAutorizada)
                     {
                         ViewBag.Mensaje = "Compra realizada con éxito.";
-                        venta.CerrarPublicacion(cliente);
+                        venta.CerrarPublicacion(cliente, venta);
                     }
                     else
                     {
@@ -60,14 +61,14 @@ namespace WebAppObligatorio.Controllers
                 if(cliente is Cliente clienteSubastador)
                 if (subasta.Estado == Estado.Abierta)
                 {
-                    if (puja > subasta.MayorPuja() && clienteSubastador.SaldoDisponible >= puja && puja > 0)
+                    if (puja > 0)
                     {
                         subasta.AgregrarPuja(puja, clienteSubastador);
                         ViewBag.Mensaje = "Puja realizada.";
                     }
                     else
                     {
-                        ViewBag.Mensaje = "La puja es menor a la mayor puja realizada o el saldo es insuficientoe.";
+                        ViewBag.Mensaje = "La puja debe ser mayor a 0.";
 
                     }
                 }

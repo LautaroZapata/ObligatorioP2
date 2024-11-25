@@ -11,7 +11,7 @@ namespace LogicaNegocio
         // ATRIBUTOS
         public static int s_proxId = 0;
         private int _idPuja;
-        private Usuario _usuarioPuja;
+        private Cliente _usuarioPuja;
         private int _montoOfertado;
         private DateTime _fechaPuja;
 
@@ -21,7 +21,7 @@ namespace LogicaNegocio
             get { return _idPuja; }
         }
 
-        public Usuario UsuarioPuja
+        public Cliente UsuarioPuja
         {
             get { return _usuarioPuja; }
             set { _usuarioPuja = value; }
@@ -45,7 +45,7 @@ namespace LogicaNegocio
         {
             this._idPuja = Puja.s_proxId++;
         }
-        public Puja(int IdPuja, Usuario UsuarioPuja, int MontoOfertado, DateTime FechaPuja)
+        public Puja(int IdPuja, Cliente UsuarioPuja, int MontoOfertado, DateTime FechaPuja)
         {
             this._idPuja = Puja.s_proxId++;
             this._usuarioPuja = UsuarioPuja;
@@ -67,15 +67,12 @@ namespace LogicaNegocio
             }
 
             return
-                //"ID Puja: " + this.IdPuja +
-                //" \n Usuario de la Puja: " + username +
                 "Mayor monto ofertado: " + this.MontoOfertado;
-                //" \n Fecha de la Puja: " + this.FechaPuja.ToString("dd/MM/yyyy");
         }
 
         public int CompareTo(Puja? other)
         {
-            return this.MontoOfertado.CompareTo(other.MontoOfertado);
+            return this.MontoOfertado.CompareTo(other.MontoOfertado) * -1;
         }
 
     }

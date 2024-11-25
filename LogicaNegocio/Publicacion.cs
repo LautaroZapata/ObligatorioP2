@@ -95,6 +95,6 @@ namespace LogicaNegocio
             }
             return listaArticulos;
         }
-        public abstract void CerrarPublicacion(Usuario user);
+        public abstract void CerrarPublicacion(Usuario user, Publicacion publicacion);
     }
 }

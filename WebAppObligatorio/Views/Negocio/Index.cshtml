@@ -1,5 +1,7 @@
 ﻿@using LogicaNegocio
-@model Cliente
+@model Usuario
+
+
 
 @if (ViewBag.Error != null)
 {
@@ -21,9 +23,13 @@
     <div class="alert alert-info">
         Esta logueado con el rol de : @Context.Session.GetString("rol")
     </div>
-    <div class="alert alert-success">
-        Saldo disponible: @Model.SaldoDisponible
-    </div>
+    @if(Model is Cliente cliente)
+    {
+        <div class="alert alert-success">
+            Saldo disponible: @cliente.SaldoDisponible
+        </div>
+    }
+   
 }
 
 
