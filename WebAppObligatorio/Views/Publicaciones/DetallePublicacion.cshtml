@@ -8,6 +8,15 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Fecha de publicacion : @Model.FechaPublicacion</li>
         <li class="list-group-item">Estado : @Model.Estado</li>
+        
+
+        @if (Model.FechaFinalizado != null)
+        {
+            <li class="list-group-item">Fecha de finalizacion : @Model.FechaFinalizado</li>
+
+        }
+
+
         @if(Model.Articulos != null || Model.Articulos.Count != 0)
         {
             @foreach(Articulo unArticulo in Model.Articulos)
@@ -19,9 +28,11 @@
         {
             int mayorPuja = subasta.MayorPuja();
             <li class="list-group-item">Precio Maximo Ofertado : @mayorPuja</li>
-        }else if(Model is Venta venta)
+        }else if(Model is Venta venta && venta.UserCierraVenta != null && venta.ClienteComprador != null)
         {
             <li class="list-group-item">Precio : @venta.PrecioVenta</li>
+            <li class="list-group-item">Usuario Comprador : @Model.ClienteComprador.Nombre</li>
+            <li class="list-group-item">Usuario Cierra Venta : @Model.UserCierraVenta.Nombre</li>   
         }
         
     </ul>

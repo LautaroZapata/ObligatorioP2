@@ -9,36 +9,42 @@ namespace WebAppObligatorio.Controllers
     public class ClientesController : Controller
     {
         private Sistema sistema = Sistema.Instancia;
-        public IActionResult Index(string mensaje)
-        {
-            return View(sistema.Clientes);
-        }
+        //public IActionResult Index(string mensaje)
+        //{
+        //    Usuario clienteLogueado = sistema.UserLogueado(HttpContext.Session.GetString("email"));
+
+        //    return View(clienteLogueado);
+        //}
 
         [HttpPost]
         public IActionResult Comprar(int id)
         {
             Venta venta = sistema.BuscarVentaPorId(id);
-            Cliente cliente = sistema.BuscarClientePorEmail(HttpContext.Session.GetString("email"));
-            if(venta.Estado ==  Estado.Abierta)
+            Usuario clienteLogueado = sistema.UserLogueado(HttpContext.Session.GetString("email"));
+            if (clienteLogueado is Cliente cliente)
             {
-                bool compraAutorizada = cliente.RealizarCompra(venta.PrecioVenta);
-                if (compraAutorizada)
+                if (venta.Estado == Estado.Abierta)
                 {
-                    ViewBag.Mensaje = "Compra realizada con éxito.";
-                    venta.CerrarPublicacion();
+                    bool compraAutorizada = cliente.RealizarCompra(venta.PrecioVenta);
+                    if (compraAutorizada)
+                    {
+                        ViewBag.Mensaje = "Compra realizada con éxito.";
+                        venta.CerrarPublicacion(cliente);
+                    }
+                    else
+                    {
+
+                        ViewBag.Mensaje = "Saldo Insuficiente";
+                    }
                 }
                 else
                 {
+                    ViewBag.Mensaje = "La publicacion se encuentra cerrada";
 
-                    ViewBag.Mensaje = "Saldo Insuficiente";
                 }
             }
-            else
-            {
-                ViewBag.Mensaje = "La publicacion se encuentra cerrada";
-
-            }
             return RedirectToAction("Index", "Negocio", new { mensaje = ViewBag.Mensaje });
+
         }
         public IActionResult Comprar()
         {
@@ -50,17 +56,18 @@ namespace WebAppObligatorio.Controllers
             try
             {
                 Subasta subasta = sistema.BuscarSubastaPorId(id);
-                Cliente cliente = sistema.BuscarClientePorEmail(HttpContext.Session.GetString("email"));
+                Usuario cliente = sistema.UserLogueado(HttpContext.Session.GetString("email"));
+                if(cliente is Cliente clienteSubastador)
                 if (subasta.Estado == Estado.Abierta)
                 {
-                    if (puja > subasta.MayorPuja() && cliente.SaldoDisponible >= puja)
+                    if (puja > subasta.MayorPuja() && clienteSubastador.SaldoDisponible >= puja && puja > 0)
                     {
-                        subasta.AgregrarPuja(puja, cliente);
+                        subasta.AgregrarPuja(puja, clienteSubastador);
                         ViewBag.Mensaje = "Puja realizada.";
                     }
                     else
                     {
-                        ViewBag.Mensaje = "La puja es menor a la mayor puja realizada.";
+                        ViewBag.Mensaje = "La puja es menor a la mayor puja realizada o el saldo es insuficientoe.";
 
                     }
                 }
@@ -77,8 +84,31 @@ namespace WebAppObligatorio.Controllers
             
             return RedirectToAction("Index", "Negocio", new { mensaje = ViewBag.Mensaje });
         }
+        public IActionResult RecargarSaldo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult RecargarSaldo(int saldo)
+        {
+            try
+            {
+                Usuario userLogueado = sistema.UserLogueado(HttpContext.Session.GetString("email"));
+                sistema.RecargarSaldoCliente(saldo, userLogueado);
+                ViewBag.Mensaje = "Recarga exitosa";
+                return View();
 
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensaje = "Error en la recarga";
+                ViewBag.Error = ex.Message;
+                return View();
 
+            }
+
+        }
+        
     }
 }
 

@@ -27,7 +27,7 @@ namespace LogicaNegocio
         }
 
         public Venta () {}
-        public Venta(Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Cliente clienteComprador, Usuario userCierraVenta, DateTime? fechaFinalizado,string nombre, bool OfertaRelampago) : base(estado, articulos, clienteComprador, userCierraVenta, fechaPublicacion, fechaFinalizado, nombre)
+        public Venta(Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Usuario clienteComprador, Usuario userCierraVenta, DateTime? fechaFinalizado,string nombre, bool OfertaRelampago) : base(estado, articulos, clienteComprador, userCierraVenta, fechaPublicacion, fechaFinalizado, nombre)
         {
             this._ofertaRelampago = OfertaRelampago;
             this.MontoTotalVenta();
@@ -64,5 +64,14 @@ namespace LogicaNegocio
                 return "NO \n Precio Total: " + this.PrecioVenta;
             }
         }
+        public override void CerrarPublicacion(Usuario user)
+        {
+            this.Estado = Estado.Cerrada;
+            this.FechaFinalizado = DateTime.Now;
+            this.ClienteComprador = user;
+            this.UserCierraVenta = user;
+
+        }
     }
+    
 }

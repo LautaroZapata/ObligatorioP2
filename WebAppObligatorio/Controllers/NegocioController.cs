@@ -11,7 +11,7 @@ namespace WebAppObligatorio.Controllers
         public IActionResult Index(string mensaje)
         {
             string email = HttpContext.Session.GetString("email");
-            Cliente cliente = sistema.BuscarClientePorEmail(email);
+            Usuario cliente = sistema.UserLogueado(email);
             if (!string.IsNullOrEmpty(mensaje))
             {
                 ViewBag.Mensaje = mensaje;

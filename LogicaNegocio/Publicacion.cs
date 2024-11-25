@@ -13,7 +13,7 @@ namespace LogicaNegocio
         private int _idPublicacion;
         private Estado _estado;
         private List<Articulo> _articulos;
-        private Cliente? _clienteComprador;
+        private Usuario? _clienteComprador;
         private Usuario? _userCierraVenta;
         private DateTime _fechaPublicacion;
         private DateTime? _fechaFinalizado;
@@ -36,7 +36,7 @@ namespace LogicaNegocio
             get { return _articulos; }
             set { _articulos = value; }
         }
-        public Cliente ClienteComprador
+        public Usuario ClienteComprador
         {
             get { return _clienteComprador; }
             set { _clienteComprador = value; }
@@ -72,7 +72,7 @@ namespace LogicaNegocio
             this._idPublicacion = Publicacion.s_proxId++;
         }
 
-        public Publicacion(Estado estado, List<Articulo> articulos, Cliente? clienteComprador, Usuario? userCierraVenta, DateTime fechaPublicacion, DateTime? fechaFinalizado, string nombre)
+        public Publicacion(Estado estado, List<Articulo> articulos, Usuario? clienteComprador, Usuario? userCierraVenta, DateTime fechaPublicacion, DateTime? fechaFinalizado, string nombre)
         {
             this._idPublicacion = Publicacion.s_proxId++;
             this.Estado = estado;
@@ -95,9 +95,6 @@ namespace LogicaNegocio
             }
             return listaArticulos;
         }
-        public void CerrarPublicacion()
-        {
-            this.Estado = Estado.Cerrada;
-        }
+        public abstract void CerrarPublicacion(Usuario user);
     }
 }

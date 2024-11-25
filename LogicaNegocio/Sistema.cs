@@ -1,4 +1,5 @@
 ﻿using LogicaNegocio;
+using System.Net.Http;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio
@@ -142,11 +143,11 @@ namespace LogicaNegocio
                 List<Articulo> articulosVenta5 = new List<Articulo> { _catalogo[4], _catalogo[9], _catalogo[15], _catalogo[17] };  // Lego Star Wars, Muñeca Barbie, Rompecabezas 1000 Piezas, Figura de Acción Marvel
 
                 // Crear las publicaciones de ventas
-                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta1, _listaClientes[0], _listaClientes[0], null, "Conectando con el futuro", false));
-                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta2, _listaClientes[1], _listaClientes[1], null, "Comodidad y funcionalidad para tu hogar", true));
-                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta3, _listaClientes[2], _listaClientes[2], null, "Estilo para cada ocasión", false));
-                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta4, _listaClientes[3], _listaClientes[3], null, "Preparados para la acción", true));
-                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta5, _listaClientes[4], _listaClientes[4], null, "Diversión para todos los niños", false));
+                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta1, null, null, null, "Conectando con el futuro", false));
+                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta2, null, null, null, "Comodidad y funcionalidad para tu hogar", true));
+                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta3, null, null, null, "Estilo para cada ocasión", false));
+                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta4, null, null, null, "Preparados para la acción", true));
+                this._listaPublicaciones.Add(new Venta(Estado.Abierta, DateTime.Now, articulosVenta5, null, null, null, "Diversión para todos los niños", false));
 
                 // Crear listas de artículos para las publicaciones de subastas, agrupados por categoría (mínimo 3, máximo 5 artículos)
 
@@ -361,17 +362,17 @@ namespace LogicaNegocio
             }
             throw new Exception("No existe una venta con ese ID");
         }
-        public Cliente BuscarClientePorEmail(string email)
+  
+        public Usuario UserLogueado(string email)
         {
-            foreach (Cliente cliente in _listaClientes)
+            foreach(Usuario user in this.Usuarios)
             {
-                if (cliente.Email == email)
+                if(user.Email == email)
                 {
-                    return cliente;
+                    return user;
                 }
             }
-            throw new Exception("No existe ese Email");
-
+            throw new Exception("No esta logueado ningun usuario");
         }
         public Subasta BuscarSubastaPorId(int id)
         {
@@ -384,6 +385,23 @@ namespace LogicaNegocio
             }
             throw new Exception("No existe una venta con ese ID");
         }
+        public void RecargarSaldoCliente(int saldo, Usuario usuario)
+        {
+            if (saldo <= 0)
+            {
+                throw new Exception("El saldo a recargar debe ser mayor a 0");
+            }
+
+            if (usuario is Cliente cliente)
+            {
+                cliente.SaldoDisponible += saldo;
+            }
+            else
+            {
+                throw new Exception("El usuario no es un cliente válido.");
+            }
+        }
+        
     }
 }
 

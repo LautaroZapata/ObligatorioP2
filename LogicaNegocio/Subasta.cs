@@ -14,7 +14,7 @@ namespace LogicaNegocio
         // CONSTRUCTORES
         public Subasta() { }
 
-        public Subasta(List<Puja>? pujas, Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Cliente? clienteComprador, Usuario? userCierraVenta, DateTime? fechaFinalizado, string nombre)
+        public Subasta(List<Puja>? pujas, Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Usuario? clienteComprador, Usuario? userCierraVenta, DateTime? fechaFinalizado, string nombre)
             : base(estado, articulos, clienteComprador, userCierraVenta, fechaPublicacion, fechaFinalizado, nombre)
         {
             if (pujas != null)
@@ -72,7 +72,6 @@ namespace LogicaNegocio
             // Agregar la nueva puja a la lista
             this._listaPujas.Add(nuevaPuja);
         }
-        
-
+        public override void CerrarPublicacion(Usuario user){}
     }
 }

@@ -1,0 +1,28 @@
+﻿@using LogicaNegocio
+@model Cliente
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-info">
+        @ViewBag.Mensaje
+    </div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+@if (!string.IsNullOrEmpty(Context.Session.GetString("email")))
+{
+    <h1>Recarga tu saldo</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label for="saldo" class="form-label">Saldo a recargar</label>
+            <input type="number" name="saldo" class="form-control" id="saldo" placeholder="$$$">
+        </div>
+        <button type="submit" class="btn btn-primary" value="RecargarSaldo">Recargar Saldo</button>
+
+    </form>
+}
