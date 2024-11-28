@@ -68,22 +68,24 @@ namespace WebAppObligatorio.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Registrarse(string nombre, string apellido, string email, string pass)
+        public IActionResult Registrarse(string nombre, string apellido, string email, string pass, int saldoDisponible)
         {
             try
             {
-                if (!string.IsNullOrEmpty(nombre) || !string.IsNullOrEmpty(apellido) || !string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(pass))
+                if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido) && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(pass) && saldoDisponible != null)
                 {
-
+                    sistema.RegistrarCliente(email,pass,nombre,apellido, saldoDisponible);
                     return RedirectToAction("Index");
                 }
                 
             }
             catch (Exception ex)
             {
+                ViewBag.Error = ex.Message;
 
             }
             return View();
+
         }
 
     }

@@ -408,12 +408,66 @@ namespace LogicaNegocio
                 subasta.Pujas.Sort();
             }
         }
-        public void VerificarPass(string pass)
+        public bool VerificarPass(string pass)
         {
-            if(pass.Length < 8 || ) { }
+            string numeros = "0123456789";
+            string letrasMin = "abcdefghijklmnñopqrstuvwxyz";
+            string letrasMay = letrasMin.ToUpper();
+            if (pass.Length < 8)
+            {
+                throw new Exception("El largo de la contraseña debe ser mayor o igual a 8 caracteres");
+            }
+            bool tieneNumero = false;
+            bool tieneLetra = false;
+            for (int i = 0; i < pass.Length; i++)
+            {
+                char caracterActual = pass[i];
+                if (numeros.Contains(caracterActual))
+                {
+                    tieneNumero = true;
+                }
+                else if (letrasMin.Contains(caracterActual) || letrasMay.Contains(caracterActual))
+                {
+                    tieneLetra = true;
+                }
+                else
+                {
+                    throw new Exception("La contraseña solo debe tener letras y numeros");
+                }
+            }
+            if (tieneNumero && tieneLetra)
+            {
+                return true;
+            }
+            return false;
+
         }
-        public void RegistrarCliente(string email, string pass)
+        public bool VerificarEmail(string email)
         {
+            foreach(Cliente cliente in this.Clientes)
+            {
+                if(email == cliente.Email)
+                {
+                    throw new Exception("El email ya esta registrado");
+                }
+            }
+            return true;
+        }
+        public void RegistrarCliente(string email, string pass, string nombre, string apellido, int saldoDisponible)
+        {
+            if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido) && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(pass) && saldoDisponible < 0)
+            {
+                if(this.VerificarPass(pass) && this.VerificarEmail(email))
+                {
+                    Cliente clienteNuevo = new Cliente(saldoDisponible, nombre, apellido, email, pass);
+                    this._listaClientes.Add(clienteNuevo);
+                    this._listaUsuarios.Add(clienteNuevo);
+                }
+            }
+            else
+            {
+                throw new Exception("Todos los campos deben ser ingresados");
+            }
 
         }
         
