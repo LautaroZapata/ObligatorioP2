@@ -408,6 +408,14 @@ namespace LogicaNegocio
                 subasta.Pujas.Sort();
             }
         }
+        public void VerificarPass(string pass)
+        {
+            if(pass.Length < 8 || ) { }
+        }
+        public void RegistrarCliente(string email, string pass)
+        {
+
+        }
         
     }
 }

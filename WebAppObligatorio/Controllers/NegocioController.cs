@@ -62,5 +62,29 @@ namespace WebAppObligatorio.Controllers
                 HttpContext.Session.SetString("email", "");
                 return RedirectToAction("Login");
         }
+        public IActionResult Registrarse(string mensaje)
+        {
+            ViewBag.Error = mensaje;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Registrarse(string nombre, string apellido, string email, string pass)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(nombre) || !string.IsNullOrEmpty(apellido) || !string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(pass))
+                {
+
+                    return RedirectToAction("Index");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,28 @@
+﻿<form method="post">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
+    </div>
+    <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Apellido">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+    </div>
+    <div class="mb-3">
+        <label for="pass" class="form-label">Password</label>
+        <input type="password" name="pass" class="form-control" id="pass">
+    </div>
+
+    <a href="~/Negocio/Login" class="btn btn-secondary">Login</a>
+    <button type="submit" class="btn btn-primary" value="Registrar">Registrarse</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
